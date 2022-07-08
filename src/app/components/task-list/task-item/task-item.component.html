@@ -1,0 +1,18 @@
+<div class="task">
+  <button kendoButton fillMode="flat" class="close-btn" (click)="deleteTask()">
+    x
+  </button>
+  <p class="name">{{ task.name }}</p>
+  <p class="desc">
+    {{ task.desc }}
+  </p>
+
+  <div class="assignee-block">
+    <div class="assignees">
+      <ng-container *ngFor="let assignee of task.assignees">
+        <img [src]="assignee.imgUrl" [alt]="assignee.imgUrl" />
+      </ng-container>
+    </div>
+    <p>Change assignee</p>
+  </div>
+</div>

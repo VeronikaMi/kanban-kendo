@@ -1,0 +1,58 @@
+<div class="popup">
+  <kendo-popup style="position: static">
+    <div class="content">
+      <h2>Add New</h2>
+      <form #f="ngForm" (ngSubmit)="addNewTask()">
+        <kendo-textbox
+          placeholder="Name..."
+          [clearButton]="true"
+          [(ngModel)]="newTask.name"
+          name="name"
+        >
+        </kendo-textbox>
+        <kendo-textarea
+          resizable="auto"
+          placeholder="Description..."
+          [(ngModel)]="newTask.desc"
+          name="description"
+        >
+        </kendo-textarea>
+        <kendo-multiselect
+          [data]="users"
+          [(ngModel)]="newTask.assignees"
+          placeholder="Assign to..."
+          name="assignees"
+          valueField="id"
+          textField="name"
+        >
+          <ng-template kendoMultiSelectItemTemplate let-user>
+            <span class="template"
+              ><kendo-avatar [imageSrc]="user.imgUrl"></kendo-avatar
+            ></span>
+            {{ user.name }}
+          </ng-template>
+        </kendo-multiselect>
+        <kendo-buttongroup>
+          <button
+            kendoButton
+            themeColor="primary"
+            size="large"
+            type="submit"
+            class="btn"
+          >
+            Save
+          </button>
+          <button
+            kendoButton
+            size="large"
+            type="button"
+            class="btn"
+            (click)="closePopup.emit()"
+          >
+            Cancel
+          </button>
+        </kendo-buttongroup>
+      </form>
+    </div>
+  </kendo-popup>
+</div>

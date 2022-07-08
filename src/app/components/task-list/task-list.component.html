@@ -1,0 +1,8 @@
+<div class="task-list">
+  <div class="title todo">
+    <h4>{{ label }}</h4>
+  </div>
+  <div class="tasks" *ngFor="let task of tasks">
+    <task-item [task]="task"></task-item>
+  </div>
+</div>

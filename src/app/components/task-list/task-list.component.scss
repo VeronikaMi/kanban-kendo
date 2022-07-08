@@ -1,0 +1,33 @@
+@import "../../../styles.scss";
+
+.task-list {
+  width: 400px;
+  border: 1px solid rgba($bg-primary, 0.4);
+
+  .title {
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .todo {
+    background-color: #54a8fc;
+  }
+
+  .in-progress {
+    background-color: #febc3c;
+  }
+
+  .qa {
+    background-color: #8f7fe5;
+  }
+
+  .done {
+    background-color: #4fd77b;
+  }
+
+  .tasks {
+    padding: 10px;
+    height: fit-content;
+  }
+}

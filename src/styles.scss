@@ -7,3 +7,24 @@ $bg-primary: #42213d;
   padding: 0;
   box-sizing: border-box;
 }
+
+// /* width */
+// ::-webkit-scrollbar {
+//   width: 30px;
+// }
+
+// /* Track */
+// ::-webkit-scrollbar-track {
+//   background: rgba($bg-primary, 0.2);
+// }
+
+// /* Handle */
+// ::-webkit-scrollbar-thumb {
+//   background: $highlight-primary;
+//   width: 30px;
+// }
+
+// /* Handle on hover */
+// ::-webkit-scrollbar-thumb:hover {
+//   background: darken($color: $highlight-primary, $amount: 0.5);
+// }

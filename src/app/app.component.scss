@@ -3,6 +3,11 @@
 header {
   padding: 20px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 4;
 
   h1 {
     color: $highlight-primary;
@@ -10,66 +15,13 @@ header {
   }
 }
 
-.sidebar {
-  background-color: $bg-primary;
-  width: 300px;
-  height: calc(100vh - 77px);
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  padding: 20px;
-  color: #eee;
-
-  .user-list {
-    width: 100%;
-    h3 {
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 22px;
-    }
-
-    .k-hstack {
-      cursor: pointer;
-      border-radius: 5px;
-      padding: 10px;
-
-      kendo-avatar {
-        margin-right: 15px;
-      }
-
-      h4 {
-        font-size: 18px;
-      }
-
-      &:hover {
-        background-color: $highlight-primary;
-      }
-    }
-
-    .active {
-      background-color: $highlight-primary;
-    }
-  }
-
-  .add-new-btn {
-    height: 60px;
-    padding: 10px 15px;
-    font-size: 20px;
-    font-weight: bold;
-    display: block;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-}
-
 .container {
   width: calc(100% - 300px);
-  //   background-color: #ff6358;
   height: calc(100vh - 77px);
   margin-left: auto;
+  margin-top: 77px;
   padding: 20px;
+  overflow: auto;
 
   h2 {
     color: $bg-primary;
@@ -78,66 +30,9 @@ header {
     text-align: center;
   }
 
-  .task-list {
-    width: 400px;
-    .title {
-      background-color: #54a8fc; //todo
-      background-color: #febc3c; //is progress
-      background-color: #8f7fe5; //QA
-      background-color: #4fd77b; //done
-      padding: 20px;
-      text-align: center;
-      color: #fff;
-    }
-
-    .tasks {
-      padding: 10px;
-      border: 1px solid rgba($bg-primary, 0.4);
-      height: fit-content;
-
-      .task {
-        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-        color: $bg-primary;
-        padding: 10px 20px;
-        margin-bottom: 15px;
-        position: relative;
-
-        & > * {
-          margin-bottom: 10px;
-        }
-
-        .close-btn {
-          position: absolute;
-          top: 5px;
-          right: 5px;
-          height: 20px;
-          width: 20px;
-          color: $highlight-primary;
-        }
-
-        .name {
-          font-weight: bold;
-          font-size: 18px;
-        }
-
-        .desc {
-          font-size: 12px;
-          opacity: 0.7;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        .assignee-block {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          p {
-            text-decoration: underline;
-            cursor: pointer;
-          }
-        }
-      }
-    }
+  .tasks {
+    display: flex;
+    align-items: center;
+    gap: 40px;
   }
 }
