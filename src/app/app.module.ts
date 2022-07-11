@@ -13,6 +13,7 @@ import { InputsModule } from '@progress/kendo-angular-inputs';
 import { FormsModule } from '@angular/forms';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { PopupComponent } from './components/popup/popup.component';
+import { KanbanService } from './kanban.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { PopupComponent } from './components/popup/popup.component';
     FormsModule,
     DropDownsModule,
   ],
-  providers: [],
+  providers: [KanbanService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

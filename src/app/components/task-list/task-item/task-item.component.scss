@@ -34,12 +34,7 @@
   }
 
   .assignee-block {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
     .assignees {
-      justify-self: flex-start;
       img {
         width: 30px;
         margin-right: 10px;
@@ -49,6 +44,7 @@
     p {
       text-decoration: underline;
       cursor: pointer;
+      margin-top: 10px;
     }
   }
 }

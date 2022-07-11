@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { User } from 'src/app/app.component';
+import { KanbanService } from 'src/app/kanban.service';
 
 @Component({
   selector: 'task-item',
@@ -8,6 +9,10 @@ import { User } from 'src/app/app.component';
 })
 export class TaskItemComponent {
   @Input() task: Task = new Task();
+  public editAssignees: boolean = false;
+
+  constructor(public service: KanbanService) {}
+
   public deleteTask() {}
 }
 

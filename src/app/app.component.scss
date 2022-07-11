@@ -16,12 +16,12 @@ header {
 }
 
 .container {
-  width: calc(100% - 300px);
+  width: calc(100% - 290px);
   height: calc(100vh - 77px);
   margin-left: auto;
   margin-top: 77px;
-  padding: 20px;
   overflow: auto;
+  padding: 40px;
 
   h2 {
     color: $bg-primary;
@@ -32,7 +32,6 @@ header {
 
   .tasks {
     display: flex;
-    align-items: center;
-    gap: 40px;
+    align-items: flex-start;
   }
 }

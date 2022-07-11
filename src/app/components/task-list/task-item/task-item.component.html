@@ -8,11 +8,30 @@
   </p>
 
   <div class="assignee-block">
-    <div class="assignees">
+    <div class="assignees" *ngIf="!editAssignees">
       <ng-container *ngFor="let assignee of task.assignees">
         <img [src]="assignee.imgUrl" [alt]="assignee.imgUrl" />
       </ng-container>
     </div>
-    <p>Change assignee</p>
+    <div class="assignees" *ngIf="editAssignees">
+      <kendo-multiselect
+        [data]="service.users"
+        [(ngModel)]="task.assignees"
+        placeholder="Assign to..."
+        name="assignees"
+        valueField="id"
+        textField="name"
+      >
+        <ng-template kendoMultiSelectItemTemplate let-user>
+          <span class="template"
+            ><kendo-avatar [imageSrc]="user.imgUrl"></kendo-avatar
+          ></span>
+          {{ user.name }}
+        </ng-template>
+      </kendo-multiselect>
+    </div>
+    <p (click)="editAssignees = !editAssignees">
+      {{ editAssignees ? "Done" : "Change assignee" }}
+    </p>
   </div>
 </div>

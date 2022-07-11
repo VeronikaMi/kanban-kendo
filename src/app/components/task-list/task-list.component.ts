@@ -9,4 +9,10 @@ import { Task } from './task-item/task-item.component';
 export class TaskListComponent {
   @Input() label: string = '';
   @Input() tasks: Task[] = [];
+  public customClass: string = '';
+
+  ngOnInit() {
+    this.customClass = this.label.toLowerCase().split(' ').join('-');
+    console.log(this.customClass);
+  }
 }

@@ -1,5 +1,5 @@
 <div class="task-list">
-  <div class="title todo">
+  <div [class]="'title ' + customClass">
     <h4>{{ label }}</h4>
   </div>
   <div class="tasks" *ngFor="let task of tasks">
