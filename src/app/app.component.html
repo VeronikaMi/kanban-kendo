@@ -1,24 +1,23 @@
 <header>
   <h1>Kanban using Kendo</h1>
 </header>
-<sidebar [users]="service.users" (openPopup)="show = true"></sidebar>
+<sidebar
+  [users]="service.users"
+  (openPopup)="show = true"
+  (filterByAssignee)="service.filterAssignees($event)"
+></sidebar>
 
 <div class="container">
   <h2>Tasks</h2>
   <div class="tasks">
-    <task-list label="TODO" [tasks]="service.todoTasks"></task-list>
-    <task-list
-      label="In Progress"
-      [tasks]="service.inProgressTasks"
-    ></task-list>
-    <task-list label="QA" [tasks]="service.QATasks"></task-list>
-    <task-list label="Done" [tasks]="service.doneTasks"></task-list>
+    <task-list label="TODO" [tasks]="tasks['TODO']"></task-list>
+    <task-list label="In Progress" [tasks]="tasks['In Progress']"></task-list>
+    <task-list label="QA" [tasks]="tasks['QA']"></task-list>
+    <task-list label="Done" [tasks]="tasks['Done']"></task-list>
   </div>
 </div>
 
-<popup
-  *ngIf="show"
-  [users]="service.users"
-  (newTaskCreated)="service.todoTasks.push($event)"
-  (closePopup)="show = false"
-></popup>
+<popup *ngIf="show" [users]="service.users" (closePopup)="show = false"></popup>
+
+<!--   (newTaskCreated)="service.todoTasks.push($event)"
+ -->

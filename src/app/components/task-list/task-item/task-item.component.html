@@ -9,14 +9,15 @@
 
   <div class="assignee-block">
     <div class="assignees" *ngIf="!editAssignees">
-      <ng-container *ngFor="let assignee of task.assignees">
+      <ng-container *ngFor="let assignee of assignees">
         <img [src]="assignee.imgUrl" [alt]="assignee.imgUrl" />
       </ng-container>
     </div>
     <div class="assignees" *ngIf="editAssignees">
       <kendo-multiselect
         [data]="service.users"
-        [(ngModel)]="task.assignees"
+        [ngModel]="assignees"
+        (ngModelChange)="assigneeChanged($event)"
         placeholder="Assign to..."
         name="assignees"
         valueField="id"
@@ -30,8 +31,30 @@
         </ng-template>
       </kendo-multiselect>
     </div>
-    <p (click)="editAssignees = !editAssignees">
+    <p (click)="editAssignees = !editAssignees; updateTask()">
       {{ editAssignees ? "Done" : "Change assignee" }}
     </p>
+  </div>
+  <div class="arrows">
+    <button
+      kendoButton
+      fillMode="flat"
+      class="arrow right"
+      (click)="move(true)"
+      rounded="full"
+      [disabled]="taskType === 'TODO'"
+    >
+      <span class="k-icon k-i-undo k-icon-md k-color-primary"></span>
+    </button>
+    <button
+      kendoButton
+      fillMode="flat"
+      class="arrow left"
+      (click)="move()"
+      rounded="full"
+      [disabled]="taskType === 'Done'"
+    >
+      <span class="k-icon k-i-redo k-icon-md k-color-primary"></span>
+    </button>
   </div>
 </div>

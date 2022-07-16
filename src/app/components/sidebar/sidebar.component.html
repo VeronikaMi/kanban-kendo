@@ -1,7 +1,14 @@
 <div class="sidebar">
   <div class="user-list">
     <h3>Filter by Users</h3>
-    <div class="k-hstack" *ngFor="let user of users">
+    <div
+      class="k-hstack"
+      *ngFor="let user of users"
+      (click)="onFilterClick(user.id)"
+      [ngClass]="{
+        'active-filter-assignee': service.filterAssignneeId === user.id
+      }"
+    >
       <kendo-avatar [imageSrc]="user.imgUrl"></kendo-avatar>
       <div>
         <h4>{{ user.name }}</h4>

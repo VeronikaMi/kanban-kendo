@@ -3,6 +3,6 @@
     <h4>{{ label }}</h4>
   </div>
   <div class="tasks" *ngFor="let task of tasks">
-    <task-item [task]="task"></task-item>
+    <task-item [task]="task" [taskType]="label"></task-item>
   </div>
 </div>

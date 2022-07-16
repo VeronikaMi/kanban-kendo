@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { KanbanService } from 'src/app/kanban.service';
 import { Task } from './task-item/task-item.component';
 
 @Component({
@@ -9,10 +10,27 @@ import { Task } from './task-item/task-item.component';
 export class TaskListComponent {
   @Input() label: string = '';
   @Input() tasks: Task[] = [];
+  public visibleTask: Task[] = [];
   public customClass: string = '';
+
+  constructor(private service: KanbanService) {}
 
   ngOnInit() {
     this.customClass = this.label.toLowerCase().split(' ').join('-');
-    console.log(this.customClass);
+    // this.visibleTask = [...this.tasks];
+    // this.service.assigneeChanged.subscribe((id: number) => {
+    //   if (id !== -1) {
+    //     this.tasks = this.service.typedTasks[this.label].filter((task: Task) =>
+    //       task.assignees.includes(id)
+    //     );
+    //   } else {
+    //     this.tasks = this.service.typedTasks[this.label];
+    //   }
+    // });
+
+    // this.service.tasksChanged.subscribe((_) => {
+    //   console.log('canged');
+    //   this.visibleTask = [...this.tasks];
+    // });
   }
 }

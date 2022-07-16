@@ -9,7 +9,19 @@ import { KanbanService } from './kanban.service';
 })
 export class AppComponent {
   public show = false;
+  public tasks: { [key: string]: Task[] } = this.service.typedTasks;
   constructor(public service: KanbanService) {}
+
+  ngOnInit() {
+    this.service.tasksChanged.subscribe(
+      (newTasks: { [key: string]: Task[] }) => {
+        console.log('sub');
+        this.tasks = { ...newTasks };
+        console.log(this.tasks);
+        // this.service.filterAssignees(this.service.filterAssignneeId);
+      }
+    );
+  }
 }
 
 export class User {
