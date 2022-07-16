@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { User } from './app.component';
-import { Task } from './components/task-list/task-item/task-item.component';
+import { TaskObject, User, Task } from './types-classes';
 
 @Injectable()
 export class KanbanService {
   public id: number = 1;
   public filterAssignneeId: number = -1;
   public assigneeChanged: Subject<number> = new Subject();
-  public tasksChanged: Subject<{ [key: string]: Task[] }> = new Subject();
+  public tasksChanged: Subject<TaskObject> = new Subject();
 
   public users: User[] = [
     {
@@ -85,66 +84,54 @@ export class KanbanService {
     },
   ];
 
-  public typedTasks: { [key: string]: Task[] } = {
+  public typedTasks: TaskObject = {
     TODO: this.todoTasks,
     'In Progress': this.inProgressTasks,
     QA: this.QATasks,
     Done: this.doneTasks,
   };
 
-  public backUp: { [key: string]: Task[] } = { ...this.typedTasks };
+  public mainTasksObject: TaskObject = { ...this.typedTasks };
 
   public addNewTask(newTask: Task): void {
-    this.backUp['TODO'] = [...this.backUp['TODO'], newTask];
-    // this.typedTasks['TODO'] = [...this.typedTasks['TODO'], newTask];
-    // console.log(this.backUp);
-    // this.tasksChanged.next(this.backUp);
+    this.mainTasksObject['TODO'] = [...this.mainTasksObject['TODO'], newTask];
     this.filterAssignees(this.filterAssignneeId);
   }
 
   public updateTask(updatedTask: Task, type: string) {
-    const index = this.backUp[type].findIndex(
+    const index = this.mainTasksObject[type].findIndex(
       (task) => task.id === updatedTask.id
     );
-    this.backUp[type][index] = { ...updatedTask };
-    // this.tasksChanged.next(this.backUp);
+    this.mainTasksObject[type][index] = { ...updatedTask };
     this.filterAssignees(this.filterAssignneeId);
   }
 
   public deleteTask(id: number, type: string): void {
-    this.backUp[type] = [
-      ...this.backUp[type].filter((task: Task) => task.id !== id),
+    this.mainTasksObject[type] = [
+      ...this.mainTasksObject[type].filter((task: Task) => task.id !== id),
     ];
-    // this.tasksChanged.next(this.backUp);
     this.filterAssignees(this.filterAssignneeId);
   }
 
   public filterAssignees(id: number): void {
-    console.log(id);
-    // this.filterAssignneeId = this.filterAssignneeId === id ? -1 : id;
-    console.log(this.filterAssignneeId);
     if (this.filterAssignneeId !== -1) {
       Object.keys(this.typedTasks).forEach((key: string) => {
         this.typedTasks[key] = [
-          ...this.backUp[key].filter((task: Task) =>
+          ...this.mainTasksObject[key].filter((task: Task) =>
             task.assignees.includes(id)
           ),
         ];
       });
-      console.log(this.typedTasks);
     } else {
       Object.keys(this.typedTasks).forEach((key: string) => {
-        this.typedTasks[key] = [...this.backUp[key]];
+        this.typedTasks[key] = [...this.mainTasksObject[key]];
       });
-      // this.typedTasks = { ...this.backUp };
-      console.log(this.typedTasks);
     }
     this.tasksChanged.next(this.typedTasks);
   }
 
   public moveTask(type: string, id: number, toLeft?: boolean): void {
-    console.log('task', type, id, toLeft);
-    Object.keys(this.backUp).forEach((key: string, index) => {
+    Object.keys(this.mainTasksObject).forEach((key: string, index) => {
       if (type === key) {
         this.move(index, id, toLeft);
         return;
@@ -153,20 +140,20 @@ export class KanbanService {
   }
 
   private move(index: number, id: number, toLeft?: boolean): void {
-    console.log('move', index, id, toLeft);
-    const currentType: string = Object.keys(this.backUp)[index];
-    const destinationType: string = Object.keys(this.backUp)[
+    const currentType: string = Object.keys(this.mainTasksObject)[index];
+    const destinationType: string = Object.keys(this.mainTasksObject)[
       toLeft ? index - 1 : index + 1
     ];
 
-    const taskIndex: number = this.backUp[currentType].findIndex(
+    const taskIndex: number = this.mainTasksObject[currentType].findIndex(
       (task) => task.id === id
     );
 
-    this.backUp[destinationType].push(this.backUp[currentType][taskIndex]);
+    this.mainTasksObject[destinationType].push(
+      this.mainTasksObject[currentType][taskIndex]
+    );
 
-    this.backUp[currentType].splice(taskIndex, 1);
-    // this.tasksChanged.next(this.backUp);
+    this.mainTasksObject[currentType].splice(taskIndex, 1);
     this.filterAssignees(this.filterAssignneeId);
   }
 }

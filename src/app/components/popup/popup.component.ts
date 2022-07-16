@@ -1,8 +1,7 @@
 import { EventEmitter } from '@angular/core';
 import { Component, Input, Output } from '@angular/core';
-import { User } from 'src/app/app.component';
+import { User, Task } from '../../types-classes';
 import { KanbanService } from 'src/app/kanban.service';
-import { Task } from '../task-list/task-item/task-item.component';
 
 @Component({
   selector: 'popup',
@@ -10,8 +9,8 @@ import { Task } from '../task-list/task-item/task-item.component';
   styleUrls: ['./popup.component.scss'],
 })
 export class PopupComponent {
-  @Input() users: User[] = [];
-  @Output() closePopup: EventEmitter<void> = new EventEmitter();
+  @Input() public users: User[] = [];
+  @Output() public closePopup: EventEmitter<void> = new EventEmitter();
   public textAreaValue: string = '';
   public newTask: Task = new Task();
   public assignees: User[] = [];

@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { User } from 'src/app/app.component';
+import { Component, Input, OnInit } from '@angular/core';
+import { User, Task } from '../../../types-classes';
 import { KanbanService } from 'src/app/kanban.service';
 
 @Component({
@@ -7,9 +7,9 @@ import { KanbanService } from 'src/app/kanban.service';
   templateUrl: './task-item.component.html',
   styleUrls: ['./task-item.component.scss'],
 })
-export class TaskItemComponent {
-  @Input() task: Task = new Task();
-  @Input() taskType: string = '';
+export class TaskItemComponent implements OnInit {
+  @Input() public task: Task = new Task();
+  @Input() public taskType: string = '';
   public editAssignees: boolean = false;
   public assignees: User[] = [];
 
@@ -21,7 +21,7 @@ export class TaskItemComponent {
     );
   }
 
-  public assigneeChanged(newAssignees: User[]) {
+  public assigneeChanged(newAssignees: User[]): void {
     this.task = {
       ...this.task,
       assignees: newAssignees.map((assignee: User) => assignee.id),
@@ -34,19 +34,11 @@ export class TaskItemComponent {
     }
   }
 
-  public deleteTask() {
+  public deleteTask(): void {
     this.service.deleteTask(this.task.id, this.taskType);
   }
 
   public move(toLeft?: boolean): void {
     this.service.moveTask(this.taskType, this.task.id, toLeft);
   }
-}
-
-export class Task {
-  public id: number = 0;
-  public name: string = '';
-  public desc: string = '';
-  // public assignees: User[] = [];
-  public assignees: number[] = [];
 }

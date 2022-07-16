@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { User } from 'src/app/app.component';
+import { User } from '../../types-classes';
 import { KanbanService } from 'src/app/kanban.service';
 
 @Component({
@@ -8,9 +8,9 @@ import { KanbanService } from 'src/app/kanban.service';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
-  @Input() users: User[] = [];
-  @Output() openPopup: EventEmitter<void> = new EventEmitter();
-  @Output() filterByAssignee: EventEmitter<number> = new EventEmitter();
+  @Input() public users: User[] = [];
+  @Output() public openPopup: EventEmitter<void> = new EventEmitter();
+  @Output() public filterByAssignee: EventEmitter<number> = new EventEmitter();
 
   constructor(public service: KanbanService) {}
 
